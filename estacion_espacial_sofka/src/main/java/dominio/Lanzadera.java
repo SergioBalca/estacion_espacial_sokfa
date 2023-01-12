@@ -17,6 +17,13 @@ public class Lanzadera extends NaveEspacial {
         this.altura = altura;
     }
 
+    public Lanzadera(String nombre, String tipo, int peso, int empuje, String combustible, int idLanzadera, int potencia, int altura){
+        super(nombre, tipo, peso, empuje, combustible);
+        this.idLanzadera = idLanzadera;
+        this.potencia = potencia;
+        this.altura = altura;
+    }
+
     // se definen los getter y setter para los atributos
 
     public int getIdLanzadera(){

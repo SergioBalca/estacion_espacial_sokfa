@@ -16,6 +16,12 @@ public class NoTripulada extends NaveEspacial {
         this.velocidad = velocidad;
     }
 
+    public NoTripulada(String nombre, String tipo, int peso, int empuje, String combustible, int idNoTripulada, int velocidad){
+        super(nombre, tipo, peso, empuje, combustible);
+        this.idNoTripulada = idNoTripulada;
+        this.velocidad = velocidad;
+    }
+
     // getter y setter para atributo velocidad
     public int getVelocidad(){
         return this.velocidad;

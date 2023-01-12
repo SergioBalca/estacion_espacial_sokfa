@@ -19,6 +19,13 @@ public class Tripulada extends NaveEspacial {
         this.numeroTripulantes = numero_tripulantes;
     }
 
+    public Tripulada(String nombre, String tipo, int peso, int idTripulada, int distanciaOrbitacion, int numeroTripulantes){
+        super(nombre, tipo, peso);
+        this.idTripulada = idTripulada;
+        this.distanciaOrbitacion = distanciaOrbitacion;
+        this.numeroTripulantes = numeroTripulantes;
+    }
+
     // getter y setter para cada atributo
 
     public int getDistanciaOrbitacion(){
