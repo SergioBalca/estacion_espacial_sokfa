@@ -1,6 +1,7 @@
 package dominio;
 
 public class Lanzadera extends NaveEspacial {
+    private int idLanzadera;
     private int potencia;
     private int altura;
 
@@ -17,6 +18,14 @@ public class Lanzadera extends NaveEspacial {
     }
 
     // se definen los getter y setter para los atributos
+
+    public int getIdLanzadera(){
+        return this.idLanzadera;
+    }
+
+    public void setIdLanzadera(int idLanzadera){
+        this.idLanzadera = idLanzadera;
+    }
      public int getPotencia(){
         return this.potencia;
      }
@@ -37,6 +46,6 @@ public class Lanzadera extends NaveEspacial {
 
      @Override
      public String toString(){
-        return super.toString() + "potencia: " + this.potencia + ", " + "altura: " + this.altura + "}";
+        return super.toString() + "id Lanzadera: " + this.idLanzadera + ", " + "potencia: " + this.potencia + ", " + "altura: " + this.altura + "}";
      }
 }

@@ -2,6 +2,7 @@ package dominio;
 
 public class NoTripulada extends NaveEspacial {
     // se definen los atributos propios de la nave tipo NoTripulada
+    private int idNoTripulada;
     private int velocidad;
 
     // constructor vacio
