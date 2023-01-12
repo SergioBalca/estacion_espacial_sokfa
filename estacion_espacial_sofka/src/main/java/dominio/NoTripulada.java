@@ -28,6 +28,6 @@ public class NoTripulada extends NaveEspacial {
     // metodo toString para imprimir atributos de la nave tipo NoTripulada
     @Override
     public String toString(){
-        return super.toString() + "velocidad: " + this.velocidad + "}";
+        return super.toString() + "id nave: " + this.idNoTripulada + ", " + "velocidad: " + this.velocidad + "}";
     }
 }

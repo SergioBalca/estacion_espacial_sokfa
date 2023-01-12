@@ -46,6 +46,6 @@ public class Lanzadera extends NaveEspacial {
 
      @Override
      public String toString(){
-        return super.toString() + "id Lanzadera: " + this.idLanzadera + ", " + "potencia: " + this.potencia + ", " + "altura: " + this.altura + "}";
+        return super.toString() + "id nave: " + this.idLanzadera + ", " + "potencia: " + this.potencia + ", " + "altura: " + this.altura + "}";
      }
 }

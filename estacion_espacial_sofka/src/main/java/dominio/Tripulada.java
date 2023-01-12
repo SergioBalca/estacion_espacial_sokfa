@@ -39,7 +39,7 @@ public class Tripulada extends NaveEspacial {
 
     @Override
     public String toString(){
-        return super.toString() + "id tripulada: " + this.idTripulada + ", " + "distancia orbitacion: " + this.distanciaOrbitacion + ", " +
+        return super.toString() + "id nave: " + this.idTripulada + ", " + "distancia orbitacion: " + this.distanciaOrbitacion + ", " +
                 "numbero tripulantes: " + this.numeroTripulantes + "}";
     }
 
