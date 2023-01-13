@@ -9,6 +9,11 @@ public class Lanzadera extends NaveEspacial {
 
     }
 
+    // constructor para implementar metodo para buscar nave por su nombre
+    public Lanzadera(String nombre){
+        super(nombre);
+    }
+
     // constructor para inicializar los atributos de la clase NaveEspacial y los propios de la tipo Lanzadera
 
     public Lanzadera(String nombre, String tipo, int peso, int empuje, String combustible, int potencia, int altura){

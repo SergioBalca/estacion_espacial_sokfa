@@ -10,6 +10,7 @@ public class EstacionEspacial {
         int opcion = -1;
         int opcion2;
         int opcion3;
+        int opcion4;
         String nombre;
         String tipo;
         int peso;
@@ -80,6 +81,20 @@ public class EstacionEspacial {
                             invetario.listarLanzadera();
                             break;
                     }
+                case 3:
+                    System.out.println("Por favor seleccione el tipo de la nave a buscar\n"
+                            + "1. Lanzadera\n"
+                            + "2. No tripulada\n"
+                            + "3. Tripulada\n");
+                    opcion4 = Integer.parseInt(consola.nextLine());
+                    switch (opcion4){
+                        case 1:
+                            System.out.println("Por favor ingrese al nombre de la nave");
+                            String nombreNave = consola.nextLine();
+                            System.out.println(nombreNave);
+                            invetario.buscarLanzadera(nombreNave);
+                    }
+
             }
         }
 

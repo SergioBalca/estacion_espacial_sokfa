@@ -10,6 +10,6 @@ public interface ILanzadera {
     //boolean existe(String nombre);
     List<Lanzadera> seleccionar() throws SQLException;
     int insertar(Lanzadera lanzadera) throws SQLException;
-    //void buscar(String nombre);
+    List<Lanzadera> buscar(String nombre);
 
 }

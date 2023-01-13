@@ -14,14 +14,15 @@ public class LanzaderaDAO implements ILanzadera {
     private Connection conexionTransaccional;
     private static final String SQL_SELECT = "SELECT id_lanzadera, nombre, tipo, peso, empuje, combustible, potencia, altura FROM estacion_espacial.lanzadera";
     private static final String SQL_INSERT = "INSERT INTO lanzadera(nombre, tipo, peso, empuje, combustible, potencia, altura) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_SELECT_ROW = "SELECT id_lanzadera, nombre, tipo, peso, empuje, combustible, potencia, altura FROM lanzadera WHERE nombre = ?";
 
     // Constructor vacio
-    public LanzaderaDAO(){
+    public LanzaderaDAO() {
 
     }
 
     // constructor que recibe objeto tipo Connection para generar conexion con base de datos
-    public LanzaderaDAO(Connection conexionTransaccional){
+    public LanzaderaDAO(Connection conexionTransaccional) {
         this.conexionTransaccional = conexionTransaccional;
     }
 
@@ -30,7 +31,6 @@ public class LanzaderaDAO implements ILanzadera {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        NaveEspacial naveEspacial = null;
         List<Lanzadera> naves = new ArrayList<>();
 
         try {
@@ -52,18 +52,19 @@ public class LanzaderaDAO implements ILanzadera {
                 naves.add((Lanzadera) nave); // se agrega una nave a la lista
             }
 
-            } finally {
-                try {
-                    Conexion.close(rs);
-                    Conexion.close(pstmt);
-                    if(this.conexionTransaccional == null)
-                        Conexion.close(conn);
-                } catch (SQLException e){
-                    e.printStackTrace(System.out);
-                }
+        } finally {
+            try {
+                Conexion.close(rs);
+                Conexion.close(pstmt);
+                if (this.conexionTransaccional == null)
+                    Conexion.close(conn);
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
+            }
         }
         return naves;
     }
+
     @Override
     public int insertar(Lanzadera lanzadera) throws SQLException {
         Connection conn = null;
@@ -85,12 +86,53 @@ public class LanzaderaDAO implements ILanzadera {
         } finally {
             try {
                 Conexion.close(pstmt);
-                if(this.conexionTransaccional == null)
+                if (this.conexionTransaccional == null)
                     Conexion.close(conn);
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace(System.out);
             }
         }
         return registros;
+    }
+
+    @Override
+    public List<Lanzadera> buscar(String nombreNave) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        NaveEspacial naveEspacial;
+        List<Lanzadera> naves = new ArrayList<>();
+
+        try {
+            conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
+            pstmt = conn.prepareStatement(SQL_SELECT_ROW);
+            pstmt.setString(1, nombreNave);
+            rs = pstmt.executeQuery();
+            while(rs.next()) {
+                int idLanzadera = rs.getInt("id_lanzadera");
+                String nombre = rs.getString("nombre");
+                String tipo = rs.getString("tipo");
+                int peso = rs.getInt("peso");
+                int empuje = rs.getInt("empuje");
+                String combustible = rs.getString("combustible");
+                int potencia = rs.getInt("potencia");
+                int altura = rs.getInt("altura");
+                // para convertir informacion de basea de datos a objetos de java
+                NaveEspacial nave = new Lanzadera(nombre, tipo, peso, empuje, combustible, idLanzadera, potencia, altura);
+                naves.add((Lanzadera) nave);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            try {
+                Conexion.close(rs);
+                Conexion.close(pstmt);
+                if (this.conexionTransaccional == null)
+                    Conexion.close(conn);
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
+            }
+        }
+        return naves;
     }
 }

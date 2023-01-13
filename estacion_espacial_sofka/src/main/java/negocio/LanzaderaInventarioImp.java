@@ -39,4 +39,12 @@ public class LanzaderaInventarioImp implements ILanzaderaInvetario{
 
 
     }
+
+    @Override
+    public void buscarLanzadera(String nombre){
+        List<Lanzadera> lanzaderas = this.datos.buscar(nombre);
+        lanzaderas.forEach(element -> {
+            System.out.println(element);
+        });
+    }
 }

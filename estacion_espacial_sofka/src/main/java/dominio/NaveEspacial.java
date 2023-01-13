@@ -13,6 +13,10 @@ public abstract class NaveEspacial {
     public NaveEspacial(){
 
     }
+
+    public NaveEspacial(String nombre){
+        this.nombre = nombre;
+    }
     public NaveEspacial(String nombre, String tipo, int peso){
         this.nombre = nombre;
         this.tipo = tipo;
