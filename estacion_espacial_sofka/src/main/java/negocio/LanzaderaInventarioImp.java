@@ -7,11 +7,11 @@ import dominio.Lanzadera;
 import java.sql.SQLException;
 import java.util.List;
 
-public class LanzaderaInvenarioImp implements ILanzaderaInvetario{
+public class LanzaderaInventarioImp implements ILanzaderaInvetario{
 
     private final ILanzadera datos;
 
-    public LanzaderaInvenarioImp() {
+    public LanzaderaInventarioImp() {
         this.datos = new LanzaderaDAO();
     }
 
@@ -27,11 +27,16 @@ public class LanzaderaInvenarioImp implements ILanzaderaInvetario{
     }
 
     @Override
-    public void listarLanzadera(String tipo) {
+    public void listarLanzadera() {
         try {
-            List<Lanzadera> lanzaderas = this.datos.seleccionar(tipo);
+            List<Lanzadera> lanzaderas = this.datos.seleccionar();
+            lanzaderas.forEach(element -> {
+                System.out.println(element);
+            });
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
+
+
     }
 }

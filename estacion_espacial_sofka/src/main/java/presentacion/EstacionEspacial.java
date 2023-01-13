@@ -1,7 +1,7 @@
 package presentacion;
 
 import negocio.ILanzaderaInvetario;
-import negocio.LanzaderaInvenarioImp;
+import negocio.LanzaderaInventarioImp;
 
 import java.util.Scanner;
 
@@ -9,6 +9,7 @@ public class EstacionEspacial {
     public static void main(String[] args) {
         int opcion = -1;
         int opcion2;
+        int opcion3;
         String nombre;
         String tipo;
         int peso;
@@ -17,14 +18,14 @@ public class EstacionEspacial {
         int potencia;
         int altura;
         Scanner consola = new Scanner(System.in);
-        ILanzaderaInvetario invetario = new LanzaderaInvenarioImp(); // para acceder a los metodos implementados en esta clase
+        ILanzaderaInvetario invetario = new LanzaderaInventarioImp(); // para acceder a los metodos para crear y listar las naves
         String tipoNave;
 
         // se define el ciclo infinito, hasta que el usuario elige la opcion 0 para salir del programa
         while(opcion != 0){
             System.out.println("Por favor Elija la opción: \n"
                     + "1. Agregar nave espacial\n"
-                    + "2. Listar naves espaciales"
+                    + "2. Listar naves espaciales\n"
                     + "3. Buscar nave espacial\n"
                     + "0. salir");
 
@@ -53,7 +54,7 @@ public class EstacionEspacial {
                                     + "potencia\n"
                                     + "altura\n");
 
-                            String[] arrStr = consola.nextLine().split(",", 0);
+                            String[] arrStr = consola.nextLine().split(",", 0); // para tomar cada atributo de la linea de comandos
 
                             nombre = arrStr[0];
                             peso = Integer.parseInt(arrStr[1]);
@@ -65,6 +66,18 @@ public class EstacionEspacial {
 
                             invetario.agregarLanzadera(nombre, tipo, peso, empuje, combustible, potencia, altura);
                             System.out.println("se ha creado la nave espacial " + nombre);
+                            break;
+                    }
+                case 2:
+                    System.out.println("Por favor elija el tipo de nave a listar\n"
+                            + "1. Lanzadera\n"
+                            + "2. No tripulada\n"
+                            + "3. Tripulada");
+                    opcion3 = Integer.parseInt(consola.nextLine());
+
+                    switch (opcion3) {
+                        case 1:
+                            invetario.listarLanzadera();
                             break;
                     }
             }

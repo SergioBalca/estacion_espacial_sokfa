@@ -12,7 +12,7 @@ import java.util.List;
 
 public class LanzaderaDAO implements ILanzadera {
     private Connection conexionTransaccional;
-    private static final String SQL_SELECT = "SELECT id_lanzadera, nombre, tipo, peso, empuje, combustible, potencia, altura FROM lanzadera";
+    private static final String SQL_SELECT = "SELECT id_lanzadera, nombre, tipo, peso, empuje, combustible, potencia, altura FROM estacion_espacial.lanzadera";
     private static final String SQL_INSERT = "INSERT INTO lanzadera(nombre, tipo, peso, empuje, combustible, potencia, altura) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
     // Constructor vacio
@@ -26,7 +26,7 @@ public class LanzaderaDAO implements ILanzadera {
     }
 
     @Override
-    public List<Lanzadera> seleccionar(String tipoNave) throws SQLException {
+    public List<Lanzadera> seleccionar() throws SQLException {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -42,14 +42,14 @@ public class LanzaderaDAO implements ILanzadera {
                 String nombre = rs.getString("nombre");
                 String tipo = rs.getString("tipo");
                 int peso = rs.getInt("peso");
+                int empuje = rs.getInt("empuje");
                 String combustible = rs.getString("combustible");
                 int potencia = rs.getInt("potencia");
                 int altura = rs.getInt("altura");
                 // para convertir informacion de basea de datos a objetos de java
-                NaveEspacial nave = new Lanzadera(); // se aplica el concepto de polimorfismo
+                NaveEspacial nave = new Lanzadera(nombre, tipo, peso, empuje, combustible, idLanzadera, potencia, altura); // se aplica el concepto de polimorfismo
 
                 naves.add((Lanzadera) nave); // se agrega una nave a la lista
-
             }
 
             } finally {
