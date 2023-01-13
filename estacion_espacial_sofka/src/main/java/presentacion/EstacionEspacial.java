@@ -43,13 +43,13 @@ public class EstacionEspacial {
 
                     switch (opcion2){
                         case 4:
-                            + "Nombre\n"
+                            System.out.println("Por favor ingrese las caracteristicas de la nave tipo lanzadera, separados por coma:\n"
+
+                                    + "Nombre\n"
                                     + "peso\n"
                                     + "tipo\n"
                                     + "empuje\n"
                                     + "combustible\n"
-                            System.out.println("Por favor ingrese las caracteristicas de la nave tipo lanzadera, separados por coma:\n"
-
                                     + "potencia\n"
                                     + "altura\n");
 
