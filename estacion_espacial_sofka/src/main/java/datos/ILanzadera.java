@@ -1,0 +1,15 @@
+package datos;
+
+import dominio.Lanzadera;
+import dominio.NaveEspacial;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public interface ILanzadera {
+    //boolean existe(String nombre);
+    List<Lanzadera> seleccionar(String tipo) throws SQLException;
+    int insertar(Lanzadera lanzadera) throws SQLException;
+    //void buscar(String nombre);
+
+}
