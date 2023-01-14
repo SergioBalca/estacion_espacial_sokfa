@@ -91,7 +91,9 @@ public class EstacionEspacial {
 
                             inventario2.agregarNoTripulada(nombre, tipo, peso, empuje, combustible, velocidad);
                             System.out.println("Se ha creado la nave " + nombre);
+                            break;
                     }
+                    break;
                 case 2:
                     System.out.println("Por favor elija el tipo de nave a listar\n"
                             + "1. Lanzadera\n"
@@ -105,7 +107,9 @@ public class EstacionEspacial {
                             break;
                         case 2:
                             inventario2.listarNoTripulada();
+                            break;
                     }
+                    break;
                 case 3:
                     System.out.println("Por favor seleccione el tipo de la nave a buscar\n"
                             + "1. Lanzadera\n"
@@ -122,7 +126,9 @@ public class EstacionEspacial {
                             System.out.println("Por favor ingrese el nombre de la nave");
                             String nombreNavent = consola.nextLine();
                             inventario2.buscarNoTripulada(nombreNavent);
+                            break;
                     }
+                    break;
 
             }
         }
