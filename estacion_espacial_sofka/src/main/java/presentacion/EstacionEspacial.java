@@ -1,7 +1,9 @@
 package presentacion;
 
 import negocio.ILanzaderaInvetario;
+import negocio.INoTripuladaInventario;
 import negocio.LanzaderaInventarioImp;
+import negocio.NoTripuladaInventarioImp;
 
 import java.util.Scanner;
 
@@ -18,8 +20,10 @@ public class EstacionEspacial {
         String combustible;
         int potencia;
         int altura;
+        int velocidad;
         Scanner consola = new Scanner(System.in);
         ILanzaderaInvetario invetario = new LanzaderaInventarioImp(); // para acceder a los metodos para crear y listar las naves
+        INoTripuladaInventario inventario2 = new NoTripuladaInventarioImp();
         String tipoNave;
 
         // se define el ciclo infinito, hasta que el usuario elige la opcion 0 para salir del programa
@@ -38,13 +42,13 @@ public class EstacionEspacial {
                     break;
                 case 1:
                     System.out.println("Por favor elija el tipo de nave a crear\n"
-                            + "4. Lanzadera\n"
-                            + "5. No tripulada\n"
-                            + "6. Tripulada");
+                            + "1. Lanzadera\n"
+                            + "2. No tripulada\n"
+                            + "3. Tripulada");
                     opcion2 = Integer.parseInt(consola.nextLine());
 
                     switch (opcion2){
-                        case 4:
+                        case 1:
                             System.out.println("Por favor ingrese las caracteristicas de la nave tipo lanzadera, separados por coma:\n"
 
                                     + "Nombre\n"
@@ -68,6 +72,25 @@ public class EstacionEspacial {
                             invetario.agregarLanzadera(nombre, tipo, peso, empuje, combustible, potencia, altura);
                             System.out.println("se ha creado la nave espacial " + nombre);
                             break;
+                        case 2:
+                            System.out.println("Por favor ingrese las caracteristicas de la nave tipo No Tripulada, separdas por coma:\n"
+                                    + "Nombre\n"
+                                    + "peso\n"
+                                    + "tipo\n"
+                                    + "empuje\n"
+                                    + "combustible\n"
+                                    + "velocidad\n");
+                            String[] arrStr2 = consola.nextLine().split(",", 0);
+
+                            nombre = arrStr2[0];
+                            peso = Integer.parseInt(arrStr2[1]);
+                            tipo = arrStr2[2];
+                            empuje = Integer.parseInt(arrStr2[3]);
+                            combustible = arrStr2[4];
+                            velocidad = Integer.parseInt(arrStr2[5]);
+
+                            inventario2.agregarNoTripulada(nombre, tipo, peso, empuje, combustible, velocidad);
+                            System.out.println("Se ha creado la nave " + nombre);
                     }
                 case 2:
                     System.out.println("Por favor elija el tipo de nave a listar\n"
@@ -80,6 +103,8 @@ public class EstacionEspacial {
                         case 1:
                             invetario.listarLanzadera();
                             break;
+                        case 2:
+                            inventario2.listarNoTripulada();
                     }
                 case 3:
                     System.out.println("Por favor seleccione el tipo de la nave a buscar\n"
@@ -89,10 +114,14 @@ public class EstacionEspacial {
                     opcion4 = Integer.parseInt(consola.nextLine());
                     switch (opcion4){
                         case 1:
-                            System.out.println("Por favor ingrese al nombre de la nave");
+                            System.out.println("Por favor ingrese el nombre de la nave");
                             String nombreNave = consola.nextLine();
-                            System.out.println(nombreNave);
                             invetario.buscarLanzadera(nombreNave);
+                            break;
+                        case 2:
+                            System.out.println("Por favor ingrese el nombre de la nave");
+                            String nombreNavent = consola.nextLine();
+                            inventario2.buscarNoTripulada(nombreNavent);
                     }
 
             }

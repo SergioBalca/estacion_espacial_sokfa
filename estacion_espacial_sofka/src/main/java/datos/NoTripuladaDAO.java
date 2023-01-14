@@ -2,6 +2,7 @@ package datos;
 
 import dominio.Lanzadera;
 import dominio.NaveEspacial;
+import dominio.NoTripulada;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,46 +10,39 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LanzaderaDAO implements ILanzadera {
+public class NoTripuladaDAO implements INoTripulada{
     private Connection conexionTransaccional;
-    private static final String SQL_SELECT = "SELECT id_lanzadera, nombre, tipo, peso, empuje, combustible, potencia, altura FROM estacion_espacial.lanzadera";
-    private static final String SQL_INSERT = "INSERT INTO lanzadera(nombre, tipo, peso, empuje, combustible, potencia, altura) VALUES(?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_SELECT_ROW = "SELECT id_lanzadera, nombre, tipo, peso, empuje, combustible, potencia, altura FROM lanzadera WHERE nombre = ?";
+    private static final String SQL_SELECT = "SELECT id_no_tripulada, nombre, tipo, peso, empuje, combustible, velocidad FROM no_tripulada";
+    private static final String SQL_INSERT = "INSERT INTO no_tripulada(nombre, tipo, peso, empuje, combustible, velocidad) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String SQL_SELECT_ROW = "SELECT id_no_tripulada, nombre, tipo, peso, empuje, combustible, velocidad FROM no_tripulada WHERE nombre = ?";
 
     // Constructor vacio
-    public LanzaderaDAO() {
+    public NoTripuladaDAO() {
 
     }
-
-    // constructor que recibe objeto tipo Connection para generar conexion con base de datos
-    public LanzaderaDAO(Connection conexionTransaccional) {
-        this.conexionTransaccional = conexionTransaccional;
-    }
-
     @Override
-    public List<Lanzadera> seleccionar() throws SQLException {
+    public List<NoTripulada> seleccionar() throws SQLException {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List<Lanzadera> naves = new ArrayList<>();
+        List<NoTripulada> naves = new ArrayList<>();
 
         try {
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
             pstmt = conn.prepareStatement(SQL_SELECT);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                int idLanzadera = rs.getInt("id_lanzadera");
+                int idNoTripulada = rs.getInt("id_no_tripulada");
                 String nombre = rs.getString("nombre");
                 String tipo = rs.getString("tipo");
                 int peso = rs.getInt("peso");
                 int empuje = rs.getInt("empuje");
                 String combustible = rs.getString("combustible");
-                int potencia = rs.getInt("potencia");
-                int altura = rs.getInt("altura");
+                int velocidad = rs.getInt("velocidad");
                 // para convertir informacion de basea de datos a objetos de java
-                NaveEspacial nave = new Lanzadera(nombre, tipo, peso, empuje, combustible, idLanzadera, potencia, altura); // se aplica el concepto de polimorfismo
+                NaveEspacial nave = new NoTripulada(nombre, tipo, peso, empuje, combustible, idNoTripulada, velocidad); // se aplica el concepto de polimorfismo
 
-                naves.add((Lanzadera) nave); // se agrega una nave a la lista
+                naves.add((NoTripulada) nave); // se agrega una nave a la lista
             }
 
         } finally {
@@ -65,7 +59,7 @@ public class LanzaderaDAO implements ILanzadera {
     }
 
     @Override
-    public int insertar(Lanzadera lanzadera) throws SQLException {
+    public int insertar(NoTripulada noTripulada) throws SQLException {
         Connection conn = null;
         PreparedStatement pstmt = null;
         int registros; // para llevara conteo de los registros afectados
@@ -73,13 +67,12 @@ public class LanzaderaDAO implements ILanzadera {
         try {
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
             pstmt = conn.prepareStatement(SQL_INSERT);
-            pstmt.setString(1, lanzadera.getNombre());
-            pstmt.setString(2, lanzadera.getTipo());
-            pstmt.setInt(3, lanzadera.getPeso());
-            pstmt.setInt(4, lanzadera.getEmpuje());
-            pstmt.setString(5, lanzadera.getCombustible());
-            pstmt.setInt(6, lanzadera.getPotencia());
-            pstmt.setInt(7, lanzadera.getAltura());
+            pstmt.setString(1, noTripulada.getNombre());
+            pstmt.setString(2, noTripulada.getTipo());
+            pstmt.setInt(3, noTripulada.getPeso());
+            pstmt.setInt(4, noTripulada.getEmpuje());
+            pstmt.setString(5, noTripulada.getCombustible());
+            pstmt.setInt(6, noTripulada.getVelocidad());
 
             registros = pstmt.executeUpdate(); // se altera el estado de la base de datos
         } finally {
@@ -95,12 +88,12 @@ public class LanzaderaDAO implements ILanzadera {
     }
 
     @Override
-    public List<Lanzadera> buscar(String nombreNave) {
+    public List<NoTripulada> buscar(String nombreNave) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         NaveEspacial naveEspacial;
-        List<Lanzadera> naves = new ArrayList<>();
+        List<NoTripulada> naves = new ArrayList<>();
 
         try {
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
@@ -108,17 +101,16 @@ public class LanzaderaDAO implements ILanzadera {
             pstmt.setString(1, nombreNave);
             rs = pstmt.executeQuery();
             while(rs.next()) {
-                int idLanzadera = rs.getInt("id_lanzadera");
+                int idNoTripulada = rs.getInt("id_no_tripulada");
                 String nombre = rs.getString("nombre");
                 String tipo = rs.getString("tipo");
                 int peso = rs.getInt("peso");
                 int empuje = rs.getInt("empuje");
                 String combustible = rs.getString("combustible");
-                int potencia = rs.getInt("potencia");
-                int altura = rs.getInt("altura");
+                int velocidad = rs.getInt("velocidad");
                 // para convertir informacion de basea de datos a objetos de java
-                NaveEspacial nave = new Lanzadera(nombre, tipo, peso, empuje, combustible, idLanzadera, potencia, altura);
-                naves.add((Lanzadera) nave);
+                NaveEspacial nave = new Lanzadera(nombre, tipo, peso, empuje, combustible, idNoTripulada, velocidad);
+                naves.add((NoTripulada) nave);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
