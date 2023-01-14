@@ -1,9 +1,6 @@
 package presentacion;
 
-import negocio.ILanzaderaInvetario;
-import negocio.INoTripuladaInventario;
-import negocio.LanzaderaInventarioImp;
-import negocio.NoTripuladaInventarioImp;
+import negocio.*;
 
 import java.util.Scanner;
 
@@ -21,9 +18,13 @@ public class EstacionEspacial {
         int potencia;
         int altura;
         int velocidad;
+        int distanciaOrbitacion;
+        int numeroTripulantes;
+
         Scanner consola = new Scanner(System.in);
         ILanzaderaInvetario invetario = new LanzaderaInventarioImp(); // para acceder a los metodos para crear y listar las naves
         INoTripuladaInventario inventario2 = new NoTripuladaInventarioImp();
+        ITripuladaInventario inventario3 = new TripuladaInventarioImp();
         String tipoNave;
 
         // se define el ciclo infinito, hasta que el usuario elige la opcion 0 para salir del programa
@@ -92,6 +93,25 @@ public class EstacionEspacial {
                             inventario2.agregarNoTripulada(nombre, tipo, peso, empuje, combustible, velocidad);
                             System.out.println("Se ha creado la nave " + nombre);
                             break;
+                        case 3:
+                            System.out.println("Por favor ingrese las caracteristicas de la nave tipo Tripulada, separadas por coma\n"
+                                    + "nombre\n"
+                                    + "peso\n"
+                                    + "tipo\n"
+                                    + "distancia orbitacion\n"
+                                    + "numero tripulantes\n");
+                            String[] arrStr3 = consola.nextLine().split(",", 0);
+
+                            nombre = arrStr3[0];
+                            peso = Integer.parseInt(arrStr3[1]);
+                            tipo = arrStr3[2];
+                            distanciaOrbitacion = Integer.parseInt(arrStr3[3]);
+                            numeroTripulantes = Integer.parseInt(arrStr3[4]);
+
+                            inventario3.agregarTripulada(nombre, tipo, peso, distanciaOrbitacion, numeroTripulantes);
+                            System.out.println("Se ha creado la nava " + nombre);
+                            break;
+
                     }
                     break;
                 case 2:
@@ -107,6 +127,9 @@ public class EstacionEspacial {
                             break;
                         case 2:
                             inventario2.listarNoTripulada();
+                            break;
+                        case 3:
+                            inventario3.listarTripulada();
                             break;
                     }
                     break;
@@ -126,6 +149,11 @@ public class EstacionEspacial {
                             System.out.println("Por favor ingrese el nombre de la nave");
                             String nombreNavent = consola.nextLine();
                             inventario2.buscarNoTripulada(nombreNavent);
+                            break;
+                        case 3:
+                            System.out.println("Por favor ingrese el nombre de la nave");
+                            String nombreNavet = consola.nextLine();
+                            inventario3.buscarTripulada(nombreNavet);
                             break;
                     }
                     break;
